@@ -151,6 +151,24 @@ kubectl apply -f calico.yaml
 $ kubectl kustomize deploy/kubernetes/base | kubectl apply -f -
 ```
 
+6. Connecting worker nodes 
+at master node
+```bash
+sudo kubeadm token create --print-join-command
+```
+at worker node
+```bash
+sudo kubeadm join "token" --cri-socket unix://var/run/cri-dockerd.sock
+```
+
+7. Running microservices applications (online boutique)
+```bash
+cd TopFull/TopFull_master/online_boutique_scripts/deployments
+kubectl apply -f online_boutique_original_custom.yaml
+kubectl apply -f metric-server-latest.yaml
+```
+
+
 ## Setting up master node
 We run TopFull algorithm that makes load control decisions at the master node. Install the required packages for running the codes. They are provided in requirements.txt file.
 
