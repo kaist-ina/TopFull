@@ -143,8 +143,6 @@ kubectl apply -f calico.yaml
 ```
 
 
----
-
 5. cAdvisor
 
 ```python
@@ -152,8 +150,6 @@ kubectl apply -f calico.yaml
 
 $ kubectl kustomize deploy/kubernetes/base | kubectl apply -f -
 ```
-
----
 
 ## Setting up master node
 We run TopFull algorithm that makes load control decisions at the master node. Install the required packages for running the codes. They are provided in requirements.txt file.
