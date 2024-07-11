@@ -37,5 +37,10 @@ Once all the environments are set up with a microservices application running on
 ## Setting up Kubernetes environment (master nodes and worker nodes)
 
 ## Setting up load generation node
+Load is generated through locust. Install the required packages for running the code.
+A single locust process cannot use multiple CPU cores. Therefore, multiple processes should be created to generate more users. We provide bash files for such use cases.
 
 ## Setting up configurations
+    ```
+    TopFull/TopFull_master/online_boutique_scripts/src/global_config.json
+    ```
