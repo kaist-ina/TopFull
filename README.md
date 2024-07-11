@@ -8,27 +8,32 @@ The repository includes our implementation of TopFull on microservices environme
 
 Once all the environments are set up with a microservices application running on Kubernetes, overload experiments are carried out by executing codes in the dedicated order.
 
-1. Starting load controller at master node.
+1. Deploy microservices
+   ```
+   cd TopFull
+   kubectl apply -f TopFull_master/online_boutique_scripts/deployments/online_boutique_custom.yaml 
+   ```
+2. Starting load controller at master node.
     ```
     cd TopFull/TopFull_master/online_boutique_scripts/src/proxy
     go run proxy_online_boutique.go
     ```
 
-2. Running TopFull system (RL ver) at master node.
+3. Running TopFull system (RL ver) at master node.
     ```
     cd TopFull/TopFull_master/online_boutique_scripts/src
     python deploy_rl.py
     ```
     You may run python deploy_mimd.py for TopFull with MIMD heuristic instead of RL.
 
-3. Generate APIs workloads at load generation node.
+4. Generate APIs workloads at load generation node.
     ```
     cd TopFull/TopFull_loadgen
     ./online_boutique_create.sh
     ./online_boutique_create2.sh
     ```
 
-4. Monitor and record results at master node.
+5. Monitor and record results at master node.
     ```
     cd TopFull/TopFull_master
     python metric_collector.py
@@ -213,15 +218,17 @@ We run TopFull algorithm that makes load control decisions at the master node. I
 
 ## Setting up load generation node
 Load is generated through locust. Install the required packages for running the code. They are provided as requirements.txt file.
-A single locust process cannot use multiple CPU cores. Therefore, multiple processes should be created to generate more users. We provide bash files for such use cases.
+A single locust process cannot use multiple CPU cores. Therefore, multiple processes should be created to generate more users.
+We provide bash files for load generation in `TopFull_loadgen` directory.  
+You can configure desired throughput for each API by modifying the bash files.
 
 ## Setting up configurations
 You should modify some configuration parameters according to your environment.  
-The configuration file for this project is named `TopFull/TopFull_master/online_boutique_scripts/src/global_config.json`.  
+The configuration file for this project is named `TopFull_master/online_boutique_scripts/src/global_config.json`.  
 Here is an example of what it looks like and explanations of parameters that should be modified.  
 
 ```bash
-# TopFull/TopFull_master/online_boutique_scripts/src/global_config.json
+# TopFull_master/online_boutique_scripts/src/global_config.json
 {
     "checkpoint_path": "/home/master_artifact/TopFull/online_boutique_scripts/src/checkpoint_000701",
     "microservice_code": "online_boutique",
