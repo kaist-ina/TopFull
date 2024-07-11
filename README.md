@@ -37,7 +37,7 @@ Once all the environments are set up with a microservices application running on
 ## How to run experiments with Breakwater and DAGOR
 
 In master node, instead of online_boutique_original_custom.yaml,
-run online_boutique_breakwater_custom.yaml and online_boutique_dagor_custom.yaml.
+execute online_boutique_breakwater_custom.yaml and online_boutique_dagor_custom.yaml.
 Their overload control algorithms are implemented in the online boutique application.
 
 1. Starting load controller at master node.
