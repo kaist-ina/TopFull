@@ -216,6 +216,26 @@ Load is generated through locust. Install the required packages for running the 
 A single locust process cannot use multiple CPU cores. Therefore, multiple processes should be created to generate more users. We provide bash files for such use cases.
 
 ## Setting up configurations
-    ```
-    TopFull/TopFull_master/online_boutique_scripts/src/global_config.json
-    ```
+You should modify some configuration parameters according to your environment.  
+The configuration file for this project is named `TopFull/TopFull_master/online_boutique_scripts/src/global_config.json`.  
+Here is an example of what it looks like and explanations of parameters that should be modified.  
+
+```bash
+# TopFull/TopFull_master/online_boutique_scripts/src/global_config.json
+{
+    "checkpoint_path": "/home/master_artifact/TopFull/online_boutique_scripts/src/checkpoint_000701",
+    "microservice_code": "online_boutique",
+    "proxy_dir": "/home/master_artifact/TopFull/online_boutique_scripts/src/proxy/rate_config/",
+    "microservice_configuration": "/home/master_artifact/TopFull/online_boutique_scripts/src/config/online_boutique.json",
+    "proxy_url": "http://10.8.0.4:8090",
+    "locust_url": "http://10.8.0.15",
+    "locust_port": 43,
+    "record_target": ["getcart", "getproduct", "postcheckout", "postcart", "emptycart"],
+    "record_path": "/home/master_artifact/TopFull/online_boutique_scripts/src/logs/",
+    "num_instance_path": "/home/master_artifact/TopFull/online_boutique_scripts/src/logs/num_instances.csv",
+    "frontend_url": "10.8.0.4:30440"
+}
+```
+* **common**: You should write an appropriate absolute path according to your home directory.  
+* **proxy_url**, **frontend_url**: You should modify this parameter into your ip address of master node.
+* **locust_url**: You should modify this parameter into your ip address of load generation node.
