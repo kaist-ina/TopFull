@@ -36,8 +36,11 @@ Once all the environments are set up with a microservices application running on
 
 ## Setting up Kubernetes environment (master nodes and worker nodes)
 
+## Setting up master node
+We run TopFull algorithm that makes load control decisions at the master node. Install the required packages for running the codes. They are provided in requirements.txt file.
+
 ## Setting up load generation node
-Load is generated through locust. Install the required packages for running the code.
+Load is generated through locust. Install the required packages for running the code. They are provided as requirements.txt file.
 A single locust process cannot use multiple CPU cores. Therefore, multiple processes should be created to generate more users. We provide bash files for such use cases.
 
 ## Setting up configurations
