@@ -6,13 +6,30 @@ The repository includes our implementation of TopFull on microservices environme
 
 ## How to run experiments
 
-1. Setting up master.
-    ```
-    placeholder
-    ```
-    The result will be stored in `logs` directory.
+Once all the environments are set up with a microservices application running on Kubernetes, overload experiments are carried out by executing codes in the dedicated order.
 
-2. Setting up loadgen.
+1. Starting load controller at master node.
     ```
-    placeholder
+    cd TopFull/TopFull_master/online_boutique_scripts/src/proxy
+    go run proxy_online_boutique.go
+    ```
+
+2. Running TopFull system (RL ver) at master node.
+    ```
+    cd TopFull/TopFull_master/online_boutique_scripts/src
+    python deploy_rl.py
+    ```
+    You may run python deploy_mimd.py for TopFull with MIMD heuristic instead of RL.
+
+3. Generate APIs workloads at load generation node.
+    ```
+    cd TopFull/TopFull_loadgen
+    ./online_boutique_create.sh
+    ./online_boutique_create2.sh
+    ```
+
+4. Monitor and record results at master node.
+    ```
+    cd TopFull/TopFull_master
+    python metric_collector.py
     ```
