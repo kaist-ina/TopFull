@@ -33,3 +33,9 @@ Once all the environments are set up with a microservices application running on
     cd TopFull/TopFull_master
     python metric_collector.py
     ```
+
+## Setting up Kubernetes environment (master nodes and worker nodes)
+
+## Setting up load generation node
+
+## Setting up configurations
