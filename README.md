@@ -219,8 +219,7 @@ We run TopFull algorithm that makes load control decisions at the master node. I
 ## Setting up load generation node
 Load is generated through locust. Install the required packages for running the code. They are provided as requirements.txt file.
 A single locust process cannot use multiple CPU cores. Therefore, multiple processes should be created to generate more users.
-We provide bash files for load generation in `TopFull_loadgen` directory.  
-You can configure desired throughput for each API by modifying the bash files.
+We provide bash files for load generation in `TopFull_loadgen` directory. You can configure desired throughput for each API by modifying the bash files.
 
 ## Setting up configurations
 You should modify some configuration parameters according to your environment.  
