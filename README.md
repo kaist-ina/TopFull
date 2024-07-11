@@ -178,12 +178,13 @@ $ kubectl kustomize deploy/kubernetes/base | kubectl apply -f -
 
 6. Connecting worker nodes 
 
-at master node
+
 ```bash
+# at master node
 sudo kubeadm token create --print-join-command
 ```
-at worker node
 ```bash
+# at worker node
 sudo kubeadm join "token" --cri-socket unix://var/run/cri-dockerd.sock
 ```
 7. Setting up microservices application images (online boutique)
