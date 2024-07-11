@@ -1,0 +1,70 @@
+{
+    "name": "online_boutique",
+    "data": {
+        "services": ["frontend", "productcatalogservice", "checkoutservice", "recommendationservice", "emailservice",
+                        "adservice", "cartservice", "currencyservice", "paymentservice", "shippingservice"],
+        "api": [
+            {
+                "name": "getproduct",
+                "method": "GET",
+                "url": "/product/*",
+                "execution_path": [
+                    "frontend",
+                    "currencyservice",
+                    "adservice",
+                    "recommendationservice",
+                    "productcatalogservice",
+                    "cartservice"
+                ]
+            },
+            {
+                "name": "postcheckout",
+                "method": "POST",
+                "url": "/cart/checkout",
+                "execution_path": [
+                    "frontend",
+                    "currencyservice",
+                    "recommendationservice",
+                    "productcatalogservice",
+                    "cartservice",
+                    "checkoutservice",
+                    "emailservice",
+                    "paymentservice",
+                    "shippingservice"
+                ]
+            },
+            {
+                "name": "getcart",
+                "method": "GET",
+                "url": "/cart",
+                "execution_path": [
+                    "frontend",
+                    "currencyservice",
+                    "recommendationservice",
+                    "productcatalogservice",
+                    "shippingservice",
+                    "cartservice"
+                ]
+            },
+            {
+                "name": "postcart",
+                "method": "POST",
+                "url": "/cart",
+                "execution_path": [
+                    "frontend",
+                    "productcatalogservice",
+                    "cartservice"
+                ]
+            },
+            {
+                "name": "emptycart",
+                "method": "POST",
+                "url": "/cart/empty",
+                "execution_path": [
+                    "frontend",
+                    "cartservice"
+                ]
+            }
+        ]
+    }
+}

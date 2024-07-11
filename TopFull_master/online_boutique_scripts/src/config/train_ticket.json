@@ -1,0 +1,96 @@
+{
+    "name": "train_ticket",
+    "data": {
+        "services": ["ts-assurance-mongo", "ts-assurance-service", "ts-auth-mongo", "ts-auth-service", "ts-avatar-service", "ts-basic-service",
+                     "ts-cancel-service", "ts-config-mongo", "ts-config-service", "ts-consign-mongo", "ts-consign-price-mongo", "ts-consign-price-service",
+                     "ts-consign-service", "ts-contacts-mongo", "ts-contacts-service", "ts-execute-service", "ts-food-map-mongo", "ts-food-map-service",
+                     "ts-food-mongo", "ts-food-service", "ts-inside-payment-mongo", "ts-inside-payment-service", "ts-news-service", "ts-notification-service",
+                     "ts-order-mongo", "ts-order-other-mongo", "ts-order-other-service", "ts-order-service", "ts-payment-service", "ts-payment-mongo",
+                     "ts-preserve-other-service", "ts-preserve-service", "ts-price-mongo", "ts-price-service", "ts-rebook-service", "ts-route-mongo",
+                     "ts-route-plan-service", "ts-route-service", "ts-seat-service", "ts-security-mongo", "ts-security-service", "ts-station-mongo",
+                     "ts-station-service", "ts-ticket-office-mongo", "ts-ticket-office-service", "ts-ticketinfo-service", "ts-train-mongo", "ts-train-service",
+                     "ts-travel-mongo", "ts-travel-plan-service", "ts-travel-service", "ts-travel2-mongo", "ts-travel2-service", "ts-ui-dashboard",
+                     "ts-user-mongo", "ts-user-service", "ts-verification-code-service", "ts-voucher-mysql", "ts-voucher-service"],
+        "api": [
+            {
+                "name": "high_speed_ticket",
+                "method": "POST",
+                "url": "/api/v1/travelservice/trips/left",
+                "execution_path": ["ts-station-service", "ts-config-service", "ts-price-service", "ts-seat-service", "ts-travel-service", "ts-ticketinfo-service", "ts-train-service", "ts-order-service", "ts-route-service", "ts-basic-service"]
+            },
+            {
+                "name": "normal_speed_ticket",
+                "method": "POST",
+                "url": "/api/v1/travel2service/trips/left",
+                "execution_path": ["ts-train-service", "ts-price-service", "ts-ticketinfo-service", "ts-route-service", "ts-seat-service", "ts-travel2-service", "ts-station-service", "ts-order-other-service", "ts-config-service", "ts-basic-service"]
+            },
+            {
+                "name": "query_order",
+                "method": "POST",
+                "url": "/api/v1/orderservice/order/refresh",
+                "execution_path": ["ts-station-service", "ts-order-service"]
+            },
+            {
+                "name": "query_order_other",
+                "method": "POST",
+                "url": "/api/v1/orderOtherService/orderOther/refresh",
+                "execution_path": ["ts-station-service", "ts-order-other-service"]
+            },
+            {
+                "name": "query_food",
+                "method": "GET",
+                "url": "/api/v1/foodservice/foods/2021-07-14/*",
+                "execution_path": ["ts-food-map-service", "ts-route-service", "ts-travel-service", "ts-food-service", "ts-station-service"]
+            },
+            {
+                "name": "query_payment",
+                "method": "POST",
+                "url": "/api/v1/inside_pay_service/inside_payment",
+                "execution_path": ["ts-inside-payment-service", "ts-payment-service", "ts-order-service"]
+            },
+            {
+                "name": "query_cheapest",
+                "method": "POST",
+                "url": "/api/v1/travelplanservice/travelPlan/cheapest",
+                "execution_path": ["ts-order-other-service", "ts-seat-service", "ts-travel-plan-service", "ts-station-service", "ts-basic-service", "ts-travel2-service", "ts-route-plan-service", "ts-ticketinfo-service", "ts-travel-service", "ts-order-service", "ts-train-service", "ts-route-service", "ts-config-service", "ts-price-service"]
+            },
+            {
+                "name": "query_min_station",
+                "method": "POST",
+                "url": "/api/v1/travelplanservice/travelPlan/minStation",
+                "execution_path": ["ts-travel-service", "ts-order-service", "ts-price-service", "ts-config-service", "ts-basic-service", "ts-route-plan-service", "ts-station-service", "ts-travel-plan-service", "ts-train-service", "ts-route-service", "ts-order-other-service", "ts-travel2-service", "ts-seat-service", "ts-ticketinfo-service"]
+
+            },
+            {
+                "name": "query_quickest",
+                "method": "POST",
+                "url": "/api/v1/travelplanservice/travelPlan/quickest",
+                "execution_path": ["ts-order-other-service", "ts-seat-service", "ts-travel-plan-service", "ts-station-service", "ts-basic-service", "ts-travel2-service", "ts-route-plan-service", "ts-ticketinfo-service", "ts-travel-service", "ts-order-service", "ts-train-service", "ts-route-service", "ts-config-service", "ts-price-service"]
+            },
+            {
+                "name": "query_route",
+                "method": "GET",
+                "url": "/api/v1/routeservice/routes",
+                "execution_path": ["ts-route-service"]
+            },
+            {
+                "name": "enter_station",
+                "method": "GET",
+                "url": "/api/v1/executeservice/execute/execute/*",
+                "execution_path": ["ts-order-service", "ts-execute-service"]
+            },
+            {
+                "name": "query_contact",
+                "method": "GET",
+                "url": "/api/v1/contactservice/contacts/account/*",
+                "execution_path": ["ts-contacts-service"]
+            },
+            {
+                "name": "preserve_normal",
+                "method": "POST",
+                "url": "/api/v1/preserveotherservice/preserveOther",
+                "execution_path": ["ts-basic-service", "ts-station-service", "ts-price-service", "ts-security-service", "ts-train-service", "ts-contacts-service", "ts-travel2-service", "ts-config-service", "ts-preserve-other-service", "ts-seat-service", "ts-route-service", "ts-order-service", "ts-ticketinfo-service", "ts-order-other-service", "ts-user-service"]
+            }
+        ]
+    }
+}

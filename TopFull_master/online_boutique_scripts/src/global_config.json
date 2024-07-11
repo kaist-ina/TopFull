@@ -1,0 +1,13 @@
+{
+    "checkpoint_path": "/home/master_artifact/TopFull/online_boutique_scripts/src/checkpoint_000701",
+    "microservice_code": "online_boutique",
+    "proxy_dir": "/home/master_artifact/TopFull/online_boutique_scripts/src/proxy/rate_config/",
+    "microservice_configuration": "/home/master_artifact/TopFull/online_boutique_scripts/src/config/online_boutique.json",
+    "proxy_url": "http://10.8.0.4:8090",
+    "locust_url": "http://10.8.0.15",
+    "locust_port": 43,
+    "record_target": ["getcart", "getproduct", "postcheckout", "postcart", "emptycart"],
+    "record_path": "/home/master_artifact/TopFull/online_boutique_scripts/src/logs/",
+    "num_instance_path": "/home/master_artifact/TopFull/online_boutique_scripts/src/logs/num_instances.csv",
+    "frontend_url": "10.8.0.4:30440"
+}

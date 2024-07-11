@@ -1,0 +1,13 @@
+{
+    "checkpoint_path": "/home/master_artifact/TopFull/online_boutique_scripts/src/checkpoint_000701",
+    "microservice_code": "train_ticket",
+    "proxy_dir": "/home/master_artifact/TopFull/online_boutique_scripts/src/proxy/rate_config/",
+    "microservice_configuration": "/home/master_artifact/TopFull/online_boutique_scripts/src/config/train_ticket.json",
+    "proxy_url": "http://10.8.0.4:8090",
+    "locust_url": "http://10.8.0.15",
+    "locust_port": 13,
+    "record_target": ["high_speed_ticket", "normal_speed_ticket", "query_order", "query_order_other", "query_food", "query_payment"],
+    "record_path": "/home/master_artifact/TopFull/online_boutique_scripts/src/logs/",
+    "num_instance_path": "/home/master_artifact/TopFull/online_boutique_scripts/src/logs/num_instances.csv",
+    "frontend_url": "10.8.0.4:32677"
+}
