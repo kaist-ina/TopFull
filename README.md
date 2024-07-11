@@ -35,7 +35,6 @@ Once all the environments are set up with a microservices application running on
     ```
 
 ## Setting up Kubernetes environment (master nodes and worker nodes)
-## **Installation**
 
 1. Install cri-docker & environment setup (Master & Worker)
 
@@ -100,7 +99,7 @@ EOF
 sudo sysctl --system
 ```
 
-1. Package installation (Master & Worker
+2. Package installation (Master & Worker)
 
 ```bash
 sudo apt-get update
@@ -108,26 +107,26 @@ sudo apt-get install -y apt-transport-https ca-certificates curl
 sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://dl.k8s.io/apt/doc/apt-key.gpg
 echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
 
-# Update 해야 패키지 인식함
+# It acknowledge packages after the update
 sudo apt-get update
 
-# k8s 설치
+# Install k8s
 sudo apt-get install -y kubelet='1.26.0-00' kubeadm='1.26.0-00' kubectl='1.26.0-00'
 
-# 버전 확인하기
+# Check version
 kubectl version --short
 
-# 버전 고정하기
+# Fix version
 sudo apt-mark hold kubelet kubeadm kubectl
 ```
 
-1. Cluster Init
+3. Cluster Init
 
 ```bash
 sudo kubeadm init --pod-network-cidr 192.168.0.0/16 --service-cidr 10.96.0.0/12 --cri-socket unix://var/run/cri-dockerd.sock
 ```
 
-1. CNI installation
+4. CNI installation
 
 ```bash
 curl https://docs.projectcalico.org/manifests/calico.yaml -O
@@ -143,11 +142,10 @@ kind: DaemonSet
 kubectl apply -f calico.yaml
 ```
 
-1. ipvs setting → refer graf-document
 
 ---
 
-cAdvisor
+5. cAdvisor
 
 ```python
 # https://github.com/google/cadvisor/tree/master/deploy/kubernetes
