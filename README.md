@@ -88,7 +88,7 @@ sudo swapoff -a
 curl -fsSL https://get.docker.com -o get-docker.sh
 sudo sh get-docker.sh
 sudo systemctl enable --now docker && sudo systemctl status docker --no-pager
-sudo usermod -aG docker worker
+sudo usermod -aG docker $USER
 sudo docker container ls
 
 # cri-docker Install
@@ -149,13 +149,15 @@ sudo sysctl --system
 sudo apt-get update
 sudo apt-get install -y apt-transport-https ca-certificates curl
 sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://dl.k8s.io/apt/doc/apt-key.gpg
-echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+echo "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.26/deb/ /" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.26/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+
 
 # It acknowledge packages after the update
 sudo apt-get update
 
 # Install k8s
-sudo apt-get install -y kubelet='1.26.0-00' kubeadm='1.26.0-00' kubectl='1.26.0-00'
+sudo apt-get install -y kubelet kubeadm kubectl
 
 # Check version
 kubectl version --short
@@ -168,6 +170,11 @@ sudo apt-mark hold kubelet kubeadm kubectl
 
 ```bash
 sudo kubeadm init --pod-network-cidr 192.168.0.0/16 --service-cidr 10.96.0.0/12 --cri-socket unix://var/run/cri-dockerd.sock
+
+#To start using your cluster, you need to run the following as a regular user:
+mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
 ```
 
 4. CNI installation (Master node)
@@ -181,7 +188,7 @@ kubectl apply -f calico.yaml
 
 ```python
 # https://github.com/google/cadvisor/tree/master/deploy/kubernetes
-
+cd TopFull/TopFull_master/online_boutique_scripts/cadvisor
 $ kubectl kustomize deploy/kubernetes/base | kubectl apply -f -
 ```
 
@@ -199,6 +206,10 @@ sudo kubeadm join "token_value_from_above" --cri-socket unix://var/run/cri-docke
 
 ## Setting master node and building application images
 We run TopFull algorithm that makes load control decisions at the master node. Install the required packages for running the codes. They are provided in requirements.txt file.
+'''sudo apt install python3-pip
+pip install -r requirements.txt
+'''
+download go 1.13.8.linux-amd64 
 
 To build online boutique microservices application follow the below.
 ```bash
