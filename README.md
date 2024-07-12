@@ -7,7 +7,7 @@ The repository includes our implementation of TopFull on microservices environme
 ## How to run experiments with TopFull
 
 Once all the environments are set up with a master node and worker nodes on Kubernetes, overload experiments are carried out by executing codes in the dedicated order.
-Please refer to the below section for setting up the environments.
+Please refer to the below sections for setting up the environments.
 
 1. Deploy microservices
    ```
@@ -43,9 +43,10 @@ Please refer to the below section for setting up the environments.
 
 ## How to run experiments with Breakwater and DAGOR
 
+Breakwater and DAGOR overload control algorithms are implemented by modifying the source code of online boutique application.
+We provide the modified codes in the online_boutique_source_code directory.
 In master node, instead of online_boutique_original_custom.yaml,
 execute online_boutique_breakwater_custom.yaml and online_boutique_dagor_custom.yaml.
-Their overload control algorithms are implemented in the online boutique application.
 
 1. Deploy microservices
    ```
@@ -73,7 +74,11 @@ Their overload control algorithms are implemented in the online boutique applica
     python metric_collector.py
     ```
 
-## Setting up Kubernetes environment (master nodes and worker nodes)
+## Setting Kubernetes environment (master node and worker nodes)
+
+Set up Kubernetes environment for a master node and worker nodes.
+cAdvisor is necessary for collecting resource usage.
+We have used Kubernetes version 1.26.0.
 
 1. Install cri-docker & environment setup (Master & Worker)
 
@@ -159,20 +164,20 @@ kubectl version --short
 sudo apt-mark hold kubelet kubeadm kubectl
 ```
 
-3. Cluster Init
+3. Cluster Init (Master node)
 
 ```bash
 sudo kubeadm init --pod-network-cidr 192.168.0.0/16 --service-cidr 10.96.0.0/12 --cri-socket unix://var/run/cri-dockerd.sock
 ```
 
-4. CNI installation
+4. CNI installation (Master node)
 
 ```bash
 cd TopFull/TopFull_master
 kubectl apply -f calico.yaml
 ```
 
-5. cAdvisor
+5. cAdvisor (Master node)
 
 ```python
 # https://github.com/google/cadvisor/tree/master/deploy/kubernetes
@@ -181,7 +186,6 @@ $ kubectl kustomize deploy/kubernetes/base | kubectl apply -f -
 ```
 
 6. Connecting worker nodes 
-
 
 ```bash
 # at master node
@@ -210,7 +214,7 @@ cd TopFull/online_boutique_source_code/microservices-demo-dagor-custom
 ## Setting up load generation node
 Load is generated through locust. Install the required packages for running the code. They are provided as requirements.txt file.
 A single locust process cannot use multiple CPU cores. Therefore, multiple processes should be created to generate more users.
-We provide bash files for load generation in `TopFull_loadgen` directory. You can configure desired throughput for each API by modifying the bash files.
+We provide bash files for load generation in `TopFull_loadgen` directory. You can configure the desired throughput for each API by modifying the bash files.
 
 ## Setting up configurations
 You should modify some configuration parameters according to your environment.  
@@ -236,3 +240,8 @@ Here is an example of what it looks like and explanations of parameters that sho
 * **common**: You should write an appropriate absolute path according to your home directory.  
 * **proxy_url**, **frontend_url**: You should modify this parameter into your ip address of master node.
 * **locust_url**: You should modify this parameter into your ip address of load generation node.
+
+Few configurations are hard coded.
+In `TopFull_master/online_boutique_scripts/src/overload_detection.py`, you can set the business priority among APIs in line 25.
+In line 115, the CPU quota unit per pod should match the configured value in the yaml file.
+In line 456 of `TopFull_master/online_boutique_scripts/src/resource_collector.py` file, the number of exec command should match the number of cAdvisor pods which differ according to the number of the worker nodes.
