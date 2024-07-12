@@ -240,6 +240,14 @@ cd TopFull/TopFull_loadgen
 locust -f locust_online_boutique.py --host=http://10.8.0.22:30440 -u 5 -r 3 --headless  --tags postcheckout < ports/8928
 ```
 
+In line 293 of locust_online_boutique.py set the appropriate IP address of the master node.
+```
+    def on_start(self):
+        self.client.proxies = {"http": "http://10.8.0.22:8090"}
+        self.client.verify = False
+```
+
+
 ## Setting configurations
 You should modify some configuration parameters according to your environment.  
 The configuration file for this project is named `TopFull_master/online_boutique_scripts/src/global_config.json`.  
