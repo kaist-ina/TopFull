@@ -249,6 +249,7 @@ Test locust is successfully installed and executable.
 cd TopFull/TopFull_loadgen
 locust -f locust_online_boutique.py --host=http://10.8.0.22:30440 -u 5 -r 3 --headless  --tags postcheckout < ports/8928
 ```
+The host should match the master node's ip address
 
 In line 293 of `locust_online_boutique.py` set the appropriate IP address of the master node.
 ```
