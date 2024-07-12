@@ -293,6 +293,7 @@ class WebsiteUser(HttpUser):
         self.client.proxies = {"http": "http://10.8.0.4:8090"}
         self.client.verify = False
     
+    @tag('postcheckout')
     @task(50)
     def checkout_slow(self):
 

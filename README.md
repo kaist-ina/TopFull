@@ -78,7 +78,7 @@ execute online_boutique_breakwater_custom.yaml and online_boutique_dagor_custom.
 
 Set up Kubernetes environment for a master node and worker nodes.
 cAdvisor is necessary for collecting resource usage.
-We have used Kubernetes version 1.26.0.
+We have used Kubernetes version 1.26.0, Ubuntu version 20.04.6
 
 1. Install cri-docker & environment setup (Master & Worker)
 
@@ -88,7 +88,7 @@ sudo swapoff -a
 curl -fsSL https://get.docker.com -o get-docker.sh
 sudo sh get-docker.sh
 sudo systemctl enable --now docker && sudo systemctl status docker --no-pager
-sudo usermod -aG docker worker
+sudo usermod -aG docker $USER
 sudo docker container ls
 
 # cri-docker Install
@@ -149,13 +149,15 @@ sudo sysctl --system
 sudo apt-get update
 sudo apt-get install -y apt-transport-https ca-certificates curl
 sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://dl.k8s.io/apt/doc/apt-key.gpg
-echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+echo "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.26/deb/ /" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.26/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+
 
 # It acknowledge packages after the update
 sudo apt-get update
 
 # Install k8s
-sudo apt-get install -y kubelet='1.26.0-00' kubeadm='1.26.0-00' kubectl='1.26.0-00'
+sudo apt-get install -y kubelet kubeadm kubectl
 
 # Check version
 kubectl version --short
@@ -168,6 +170,11 @@ sudo apt-mark hold kubelet kubeadm kubectl
 
 ```bash
 sudo kubeadm init --pod-network-cidr 192.168.0.0/16 --service-cidr 10.96.0.0/12 --cri-socket unix://var/run/cri-dockerd.sock
+
+#To start using your cluster, you need to run the following as a regular user:
+mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
 ```
 
 4. CNI installation (Master node)
@@ -181,7 +188,7 @@ kubectl apply -f calico.yaml
 
 ```python
 # https://github.com/google/cadvisor/tree/master/deploy/kubernetes
-
+cd TopFull/TopFull_master/online_boutique_scripts/cadvisor
 $ kubectl kustomize deploy/kubernetes/base | kubectl apply -f -
 ```
 
@@ -197,8 +204,12 @@ sudo kubeadm join "token_value_from_above" --cri-socket unix://var/run/cri-docke
 ```
 
 
-## Setting up master node and application images
-We run TopFull algorithm that makes load control decisions at the master node. Install the required packages for running the codes. They are provided in requirements.txt file.
+## Setting master node and building application images
+We run TopFull algorithm that makes load control decisions at the master node. Install the required packages for running the codes. 
+To find appropriate versions of the packages they are provided in requirements.txt file. (e.g., ray version 2.0.0)
+
+download go 1.13.8.linux-amd64 
+https://go.dev/doc/install
 
 To build online boutique microservices application follow the below.
 ```bash
@@ -212,11 +223,32 @@ cd TopFull/online_boutique_source_code/microservices-demo-dagor-custom
 
 
 ## Setting up load generation node
-Load is generated through locust. Install the required packages for running the code. They are provided as requirements.txt file.
-A single locust process cannot use multiple CPU cores. Therefore, multiple processes should be created to generate more users.
+Load is generated through Locust from a separate machine. 
 We provide bash files for load generation in `TopFull_loadgen` directory. You can configure the desired throughput for each API by modifying the bash files.
+Install Locust and the required packages for running the code. 
+For the appropriate version of the packages refer to requirements.txt file.
+A single locust process cannot use multiple CPU cores. Therefore, multiple processes should be created to generate more users.
 
-## Setting up configurations
+You may set a path to run the locust command.
+```bash
+export PATH=$PATH:/home/topfull-loadgen/.local/bin
+```
+
+Test locust is successfully installed and executable.
+```bash
+cd TopFull/TopFull_loadgen
+locust -f locust_online_boutique.py --host=http://10.8.0.22:30440 -u 5 -r 3 --headless  --tags postcheckout < ports/8928
+```
+
+In line 293 of locust_online_boutique.py set the appropriate IP address of the master node.
+```
+    def on_start(self):
+        self.client.proxies = {"http": "http://10.8.0.22:8090"}
+        self.client.verify = False
+```
+
+
+## Setting configurations
 You should modify some configuration parameters according to your environment.  
 The configuration file for this project is named `TopFull_master/online_boutique_scripts/src/global_config.json`.  
 Here is an example of what it looks like and explanations of parameters that should be modified.  
@@ -238,7 +270,7 @@ Here is an example of what it looks like and explanations of parameters that sho
 }
 ```
 * **common**: You should write an appropriate absolute path according to your home directory.  
-* **proxy_url**, **frontend_url**: You should modify this parameter into your ip address of master node.
+* **proxy_url**, **frontend_url**: You should modify this parameter into your ip address of master node and appropriate port numbers.
 * **locust_url**: You should modify this parameter into your ip address of load generation node.
 
 Few configurations are hard coded.

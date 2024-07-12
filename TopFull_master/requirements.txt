@@ -11,7 +11,6 @@ certifi==2021.10.8
 chardet==3.0.4
 charset-normalizer==2.0.12
 click==8.0.4
-cloud-init==23.2.1
 cloudpickle==2.1.0
 cmake==3.27.5
 colorama==0.4.3
@@ -25,7 +24,6 @@ dbus-python==1.2.16
 Deprecated==1.2.13
 distlib==0.3.6
 distro==1.4.0
-distro-info==0.23ubuntu1
 dm-tree==0.1.7
 entrypoints==0.3
 Farama-Notifications==0.0.4
