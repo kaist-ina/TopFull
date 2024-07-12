@@ -221,16 +221,6 @@ To find appropriate versions of the packages they are provided in requirements.t
 download go 1.13.8.linux-amd64 
 https://go.dev/doc/install
 
-To build online boutique microservices application follow the below.
-```bash
-cd TopFull/online_boutique_source_code/microservices-demo-custom
-./build_all.sh
-cd TopFull/online_boutique_source_code/microservices-demo-breakwater
-./build_all.sh
-cd TopFull/online_boutique_source_code/microservices-demo-dagor-custom
-./build_all.sh
-```
-
 
 ## Setting up load generation node
 Load is generated through Locust from a separate machine. 
