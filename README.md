@@ -273,7 +273,13 @@ Here is an example of what it looks like and explanations of parameters that sho
 * **proxy_url**, **frontend_url**: You should modify this parameter into your ip address of master node and appropriate port numbers.
 * **locust_url**: You should modify this parameter into your ip address of load generation node.
 
+`TopFull_master/online_boutique_scripts/src/proxy/proxy_online_boutique.go` line 28,
+`TopFull_master/online_boutique_scripts/src/deploy_rl.py` line 13,
+`TopFull_master/online_boutique_scripts/src/metric_collector.py` line 9,
+`TopFull_master/online_boutique_scripts/src/overload_detection.py` line 10,
+set the appropriate path to the global_config.json file.
+
 Few configurations are hard coded.
 In `TopFull_master/online_boutique_scripts/src/overload_detection.py`, you can set the business priority among APIs in line 25.
 In line 115, the CPU quota unit per pod should match the configured value in the yaml file.
-In line 456 of `TopFull_master/online_boutique_scripts/src/resource_collector.py` file, the number of exec command should match the number of cAdvisor pods which differ according to the number of the worker nodes (Current setting expects five worker nodes).
+In line 456 of `TopFull_master/online_boutique_scripts/src/resource_collector.py` file, the number of exec command should match the number of cAdvisor pods which differ according to the number of the worker nodes (Current setting expects 5 worker nodes).
