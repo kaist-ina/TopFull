@@ -237,7 +237,7 @@ We run TopFull algorithm that makes load control decisions at the master node. I
 download go 1.13.8.linux-amd64 version from 
 https://go.dev/doc/install
 
-To find appropriate versions of the packages they are provided in requirements.txt file. (e.g., ray version 2.0.0)
+To find appropriate versions of the packages, refer to **requirements.txt** file in TopFull_master directory. (e.g., ray version 2.0.0)
 
 
 
@@ -245,7 +245,7 @@ To find appropriate versions of the packages they are provided in requirements.t
 Load is generated through Locust from a separate machine. 
 We provide bash files for load generation in `TopFull_loadgen` directory. You can configure the desired throughput for each API by modifying the bash files.
 Install Locust and the required packages for running the code. 
-For the appropriate version of the packages refer to requirements.txt file.
+For the appropriate version of the packages, refer to **requirements.txt** file in TopFull_loadgen directory.
 A single locust process cannot use multiple CPU cores. Therefore, multiple processes should be created to generate more users.
 
 You may set a path to run the locust command.
