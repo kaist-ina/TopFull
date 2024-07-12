@@ -9,12 +9,16 @@ The repository includes our implementation of TopFull on microservices environme
 Once all the environments are set up with a master node and worker nodes on Kubernetes, overload experiments are carried out by executing codes in the dedicated order.
 Please refer to the below sections first to set up the environments.
 
-1. Deploy microservices
+1. Deploy microservices and scale instances
    ```
    cd TopFull
    kubectl apply -f TopFull_master/online_boutique_scripts/deployments/online_boutique_custom.yaml
    kubectl apply -f TopFull_master/online_boutique_scripts/deployments/metric-server-latest.yaml
+
+   cd TopFull/TopFull_master/online_boutique_scripts/src
+   python instance_scaling.py
    ```
+   
 2. Starting load controller at master node.
     ```
     cd TopFull/TopFull_master/online_boutique_scripts/src/proxy
@@ -48,11 +52,14 @@ We provide the modified codes in the online_boutique_source_code directory.
 In master node, instead of online_boutique_original_custom.yaml,
 execute online_boutique_breakwater_custom.yaml and online_boutique_dagor_custom.yaml.
 
-1. Deploy microservices
+1. Deploy microservices and scale instances
    ```
    cd TopFull
    kubectl apply -f TopFull_master/online_boutique_scripts/deployments/online_boutique_breakwater_custom.yaml
    kubectl apply -f TopFull_master/online_boutique_scripts/deployments/metric-server-latest.yaml
+   
+   cd TopFull/TopFull_master/online_boutique_scripts/src
+   python instance_scaling.py
    ```
 
 2. Starting load controller at master node.
@@ -284,3 +291,5 @@ Few configurations are hard coded.
 In `TopFull_master/online_boutique_scripts/src/overload_detection.py`, you can set the business priority among APIs in line 25.
 In line 115, the CPU quota unit per pod should match the configured value in the yaml file.
 In line 456 of `TopFull_master/online_boutique_scripts/src/resource_collector.py` file, the number of exec command should match the number of cAdvisor pods which differ according to the number of the worker nodes (Current setting expects 5 worker nodes).
+
+Modify resources (number of instances) for microservices through Kubernetes commands and workloads through Locust for the experiment.
