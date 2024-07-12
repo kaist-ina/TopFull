@@ -41,7 +41,7 @@ Please refer to the below sections first to set up the environments.
 
 5. Monitor and record results at master node.
     ```
-    cd TopFull/TopFull_master
+    cd TopFull/TopFull_master/online_boutique_scripts/src
     python metric_collector.py
     ```
 
@@ -77,7 +77,7 @@ execute online_boutique_breakwater_custom.yaml and online_boutique_dagor_custom.
 
 4. Monitor and record results at master node.
     ```
-    cd TopFull/TopFull_master
+    cd TopFull/TopFull_master/online_boutique_scripts/src
     python metric_collector.py
     ```
 
@@ -222,11 +222,22 @@ If the above setups are done correctly, it will output similar to the below imag
 
 
 ## Setting master node and building application images
-We run TopFull algorithm that makes load control decisions at the master node. Install the required packages for running the codes. 
+We run TopFull algorithm that makes load control decisions at the master node. Install the required packages for running the below codes. 
+    ```
+    cd TopFull/TopFull_master/online_boutique_scripts/src/proxy
+    go run proxy_online_boutique.go
+
+    cd TopFull/TopFull_master/online_boutique_scripts/src
+    python deploy_rl.py
+    python metric_collector.py
+    ```
+(deploy_rl.py doesn't work without running proxy_online_botique.go and metric_collector.py doesn't work without workload input from the load generator)
+
+download go 1.13.8.linux-amd64 version from 
+https://go.dev/doc/install
+
 To find appropriate versions of the packages they are provided in requirements.txt file. (e.g., ray version 2.0.0)
 
-download go 1.13.8.linux-amd64 
-https://go.dev/doc/install
 
 
 ## Setting up load generation node
