@@ -206,6 +206,10 @@ sudo kubeadm join "token_value_from_above" --cri-socket unix://var/run/cri-docke
 
 ## Setting master node and building application images
 We run TopFull algorithm that makes load control decisions at the master node. Install the required packages for running the codes. They are provided in requirements.txt file.
+'''sudo apt install python3-pip
+pip install -r requirements.txt
+'''
+download go 1.13.8.linux-amd64 
 
 To build online boutique microservices application follow the below.
 ```bash
