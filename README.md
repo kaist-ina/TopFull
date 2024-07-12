@@ -205,11 +205,11 @@ sudo kubeadm join "token_value_from_above" --cri-socket unix://var/run/cri-docke
 
 
 ## Setting master node and building application images
-We run TopFull algorithm that makes load control decisions at the master node. Install the required packages for running the codes. They are provided in requirements.txt file.
-'''sudo apt install python3-pip
-pip install -r requirements.txt
-'''
+We run TopFull algorithm that makes load control decisions at the master node. Install the required packages for running the codes. 
+To find appropriate versions of the packages they are provided in requirements.txt file. (e.g., ray version 2.0.0)
+
 download go 1.13.8.linux-amd64 
+https://go.dev/doc/install
 
 To build online boutique microservices application follow the below.
 ```bash
@@ -223,10 +223,22 @@ cd TopFull/online_boutique_source_code/microservices-demo-dagor-custom
 
 
 ## Setting up load generation node
-Load is generated through locust from a separate machine. 
+Load is generated through Locust from a separate machine. 
 We provide bash files for load generation in `TopFull_loadgen` directory. You can configure the desired throughput for each API by modifying the bash files.
-Install the required packages for running the code. They are provided as requirements.txt file.
+Install Locust and the required packages for running the code. 
+For the appropriate version of the packages refer to requirements.txt file.
 A single locust process cannot use multiple CPU cores. Therefore, multiple processes should be created to generate more users.
+
+You may set a path to run the locust command.
+```bash
+export PATH=$PATH:/home/topfull-loadgen/.local/bin
+```
+
+Test locust is successfully installed and executable.
+```bash
+cd TopFull/TopFull_loadgen
+locust -f locust_online_boutique.py --host=http://10.8.0.22:30440 -u 5 -r 3 --headless  --tags postcheckout < ports/8928
+```
 
 ## Setting configurations
 You should modify some configuration parameters according to your environment.  
