@@ -12,7 +12,8 @@ Please refer to the below section for setting up the environments.
 1. Deploy microservices
    ```
    cd TopFull
-   kubectl apply -f TopFull_master/online_boutique_scripts/deployments/online_boutique_custom.yaml 
+   kubectl apply -f TopFull_master/online_boutique_scripts/deployments/online_boutique_custom.yaml
+   kubectl apply -f TopFull_master/online_boutique_scripts/deployments/metric-server-latest.yaml
    ```
 2. Starting load controller at master node.
     ```
@@ -39,7 +40,6 @@ Please refer to the below section for setting up the environments.
     cd TopFull/TopFull_master
     python metric_collector.py
     ```
-The results are logged in the TopFull/TopFull_master/online_boutique_scripts/src/logs directory.
 
 ## How to run experiments with Breakwater and DAGOR
 
@@ -47,20 +47,27 @@ In master node, instead of online_boutique_original_custom.yaml,
 execute online_boutique_breakwater_custom.yaml and online_boutique_dagor_custom.yaml.
 Their overload control algorithms are implemented in the online boutique application.
 
-1. Starting load controller at master node.
+1. Deploy microservices
+   ```
+   cd TopFull
+   kubectl apply -f TopFull_master/online_boutique_scripts/deployments/online_boutique_breakwater_custom.yaml
+   kubectl apply -f TopFull_master/online_boutique_scripts/deployments/metric-server-latest.yaml
+   ```
+
+2. Starting load controller at master node.
     ```
     cd TopFull/TopFull_master/online_boutique_scripts/src/proxy
     go run proxy_online_boutique.go
     ```
 
-2. Generate APIs workloads at load generation node.
+3. Generate APIs workloads at load generation node.
     ```
     cd TopFull/TopFull_loadgen
     ./online_boutique_create.sh
     ./online_boutique_create2.sh
     ```
 
-3. Monitor and record results at master node.
+4. Monitor and record results at master node.
     ```
     cd TopFull/TopFull_master
     python metric_collector.py
@@ -161,19 +168,9 @@ sudo kubeadm init --pod-network-cidr 192.168.0.0/16 --service-cidr 10.96.0.0/12 
 4. CNI installation
 
 ```bash
-curl https://docs.projectcalico.org/manifests/calico.yaml -O
-
-# Important!
-# Set VXLAN mode
-kind: DaemonSet
-- name: CALICO_IPV4POOL_IPIP
-  value: "Never"
-- name: CALICO_IPV4POOL_VXLAN
-  value: "Always"
-
+cd TopFull/TopFull_master
 kubectl apply -f calico.yaml
 ```
-
 
 5. cAdvisor
 
@@ -192,11 +189,14 @@ sudo kubeadm token create --print-join-command
 ```
 ```bash
 # at worker node
-sudo kubeadm join "token" --cri-socket unix://var/run/cri-dockerd.sock
+sudo kubeadm join "token_value_from_above" --cri-socket unix://var/run/cri-dockerd.sock
 ```
-7. Setting up microservices application images (online boutique)
 
-To build online boutique microservices follow the below.
+
+## Setting up master node and application images
+We run TopFull algorithm that makes load control decisions at the master node. Install the required packages for running the codes. They are provided in requirements.txt file.
+
+To build online boutique microservices application follow the below.
 ```bash
 cd TopFull/online_boutique_source_code/microservices-demo-custom
 ./build_all.sh
@@ -205,17 +205,6 @@ cd TopFull/online_boutique_source_code/microservices-demo-breakwater
 cd TopFull/online_boutique_source_code/microservices-demo-dagor-custom
 ./build_all.sh
 ```
-
-8. Running microservices applications (online boutique)
-```bash
-cd TopFull/TopFull_master/online_boutique_scripts/deployments
-kubectl apply -f online_boutique_original_custom.yaml
-kubectl apply -f metric-server-latest.yaml
-```
-
-
-## Setting up master node and application images
-We run TopFull algorithm that makes load control decisions at the master node. Install the required packages for running the codes. They are provided in requirements.txt file.
 
 
 ## Setting up load generation node
