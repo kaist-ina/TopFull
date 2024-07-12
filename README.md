@@ -197,7 +197,7 @@ sudo kubeadm join "token_value_from_above" --cri-socket unix://var/run/cri-docke
 ```
 
 
-## Setting up master node and application images
+## Setting master node and building application images
 We run TopFull algorithm that makes load control decisions at the master node. Install the required packages for running the codes. They are provided in requirements.txt file.
 
 To build online boutique microservices application follow the below.
@@ -212,11 +212,12 @@ cd TopFull/online_boutique_source_code/microservices-demo-dagor-custom
 
 
 ## Setting up load generation node
-Load is generated through locust. Install the required packages for running the code. They are provided as requirements.txt file.
-A single locust process cannot use multiple CPU cores. Therefore, multiple processes should be created to generate more users.
+Load is generated through locust from a separate machine. 
 We provide bash files for load generation in `TopFull_loadgen` directory. You can configure the desired throughput for each API by modifying the bash files.
+Install the required packages for running the code. They are provided as requirements.txt file.
+A single locust process cannot use multiple CPU cores. Therefore, multiple processes should be created to generate more users.
 
-## Setting up configurations
+## Setting configurations
 You should modify some configuration parameters according to your environment.  
 The configuration file for this project is named `TopFull_master/online_boutique_scripts/src/global_config.json`.  
 Here is an example of what it looks like and explanations of parameters that should be modified.  
@@ -238,7 +239,7 @@ Here is an example of what it looks like and explanations of parameters that sho
 }
 ```
 * **common**: You should write an appropriate absolute path according to your home directory.  
-* **proxy_url**, **frontend_url**: You should modify this parameter into your ip address of master node.
+* **proxy_url**, **frontend_url**: You should modify this parameter into your ip address of master node and appropriate port numbers.
 * **locust_url**: You should modify this parameter into your ip address of load generation node.
 
 Few configurations are hard coded.
