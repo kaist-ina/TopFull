@@ -244,4 +244,4 @@ Here is an example of what it looks like and explanations of parameters that sho
 Few configurations are hard coded.
 In `TopFull_master/online_boutique_scripts/src/overload_detection.py`, you can set the business priority among APIs in line 25.
 In line 115, the CPU quota unit per pod should match the configured value in the yaml file.
-In line 456 of `TopFull_master/online_boutique_scripts/src/resource_collector.py` file, the number of exec command should match the number of cAdvisor pods which differ according to the number of the worker nodes.
+In line 456 of `TopFull_master/online_boutique_scripts/src/resource_collector.py` file, the number of exec command should match the number of cAdvisor pods which differ according to the number of the worker nodes (Current setting expects five worker nodes).
