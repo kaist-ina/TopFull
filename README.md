@@ -78,7 +78,7 @@ execute online_boutique_breakwater_custom.yaml and online_boutique_dagor_custom.
 
 Set up Kubernetes environment for a master node and worker nodes.
 cAdvisor is necessary for collecting resource usage.
-We have used Kubernetes version 1.26.0.
+We have used Kubernetes version 1.26.0, Ubuntu version 20.04.6
 
 1. Install cri-docker & environment setup (Master & Worker)
 
