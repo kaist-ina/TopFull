@@ -88,7 +88,7 @@ sudo swapoff -a
 curl -fsSL https://get.docker.com -o get-docker.sh
 sudo sh get-docker.sh
 sudo systemctl enable --now docker && sudo systemctl status docker --no-pager
-sudo usermod -aG docker worker
+sudo usermod -aG docker $USER
 sudo docker container ls
 
 # cri-docker Install
