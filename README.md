@@ -203,6 +203,16 @@ sudo kubeadm token create --print-join-command
 sudo kubeadm join "token_value_from_above" --cri-socket unix://var/run/cri-dockerd.sock
 ```
 
+7. Check Master & Worker nodes.
+
+```bash
+# at master node
+kubectl get po --all-namespaces -owide
+```
+If the above setups are done correctly, it will output similar to the below image.
+![image](https://github.com/user-attachments/assets/e5f17966-3b73-4c1e-8c8e-e63a08b4f13b)
+
+
 
 ## Setting master node and building application images
 We run TopFull algorithm that makes load control decisions at the master node. Install the required packages for running the codes. 
