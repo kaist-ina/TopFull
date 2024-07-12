@@ -10,7 +10,7 @@ import threading
 import sys
 import json
 
-global_config_path = "/home/master_artifact/TopFull/online_boutique_scripts/src/global_config.json"
+global_config_path = "/home/topfull-master/TopFull/TopFull_master/online_boutique_scripts/src/global_config.json"
 with open(global_config_path, "r") as f:
     global_config = json.load(f)
 

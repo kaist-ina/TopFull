@@ -25,7 +25,7 @@ var (
 	limiter = rate.NewLimiter(70, 70)
 	limitDir string
 	limiterTable = make(map[string]*rate.Limiter)
-	global_config_path = "/home/master_artifact/TopFull/online_boutique_scripts/src/global_config.json"
+	global_config_path = "/home/topfull-master/TopFull/TopFull_master/online_boutique_scripts/src/global_config.json"
 	global_config Config
 	mapStats = make(map[string]*StatsModule)
 	globalLock *sync.Mutex
