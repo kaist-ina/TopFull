@@ -223,6 +223,7 @@ If the above setups are done correctly, it will output similar to the below imag
 
 ## Setting master node and building application images
 We run TopFull algorithm that makes load control decisions at the master node. Install the required packages for running the below codes. 
+
     ```
     cd TopFull/TopFull_master/online_boutique_scripts/src/proxy
     go run proxy_online_boutique.go
