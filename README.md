@@ -304,11 +304,10 @@ In `TopFull_master/online_boutique_scripts/src/overload_detection.py`, you can s
 In line 115, the CPU quota unit per pod should match the configured value in the yaml file.
 In line 456 of `TopFull_master/online_boutique_scripts/src/resource_collector.py` file, the number of exec command should match the number of cAdvisor pods which differ according to the number of the worker nodes (Current setting expects 5 worker nodes).
 
-In **Load Generator** Node, configure the host address to the master node's address in bash files.
+In **Load Generator** Node, configure the host address to the master node's address in bash files' locust commands.
     ```
-    cd TopFull/TopFull_loadgen
-    ./online_boutique_create.sh
-    ./online_boutique_create2.sh
+    online_boutique_create.sh
+    online_boutique_create2.sh
     ```
 
 Modify resources (number of instances) for microservices through Kubernetes commands and workloads through Locust for the experiment.
