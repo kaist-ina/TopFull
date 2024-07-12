@@ -7,7 +7,7 @@ The repository includes our implementation of TopFull on microservices environme
 ## How to run experiments with TopFull
 
 Once all the environments are set up with a master node and worker nodes on Kubernetes, overload experiments are carried out by executing codes in the dedicated order.
-Please refer to the below sections for setting up the environments.
+Please refer to the below sections first to set up the environments.
 
 1. Deploy microservices
    ```
