@@ -159,7 +159,7 @@ curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.26/deb/Release.key | sudo gpg --
 sudo apt-get update
 
 # Install k8s
-sudo apt-get install -y kubelet='1.26.0-00' kubeadm='1.26.0-00' kubectl='1.26.0-00'
+sudo apt-get install -y kubelet kubeadm kubectl
 
 # Check version
 kubectl version --short
