@@ -25,7 +25,7 @@ Please refer to the below sections first to set up the environments.
     go run proxy_online_boutique.go
     ```
 
-3. Running TopFull system (RL ver) at master node.
+3. Running TopFull system (RL ver.) at master node.
     ```
     cd TopFull/TopFull_master/online_boutique_scripts/src
     python deploy_rl.py
