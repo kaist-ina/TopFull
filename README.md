@@ -190,7 +190,7 @@ kubectl apply -f calico.yaml
 
 ```python
 # https://github.com/google/cadvisor/tree/master/deploy/kubernetes
-
+cd TopFull/TopFull_master/online_boutique_scripts/cadvisor
 $ kubectl kustomize deploy/kubernetes/base | kubectl apply -f -
 ```
 
