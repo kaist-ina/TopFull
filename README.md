@@ -325,11 +325,10 @@ execute online_boutique_breakwater_custom.yaml and online_boutique_dagor_custom.
 For component-wise experiments (corresponding to Figure 10 in the paper), instead of deploy_rl.py run deploy_mimd.py, or deploy_without_cluster.py. as below.
 deploy_mimd.py corresponds to TopFull with a heuristic MIMD-based rate controller instead of an RL-based rate controller.
 
-    ```
+    
     cd TopFull/TopFull_master/online_boutique_scripts/src
     python deploy_mimd.py
-    ```
-
+    
 deploy_without_cluster.py corresponds to TopFull disabled with clustering APIs for parallel load control. 
 
     ```
