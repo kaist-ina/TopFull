@@ -342,11 +342,13 @@ At the load generation node, first, generate base load which should be adequate 
     cd TopFull/TopFull_loadgen
     ./run_fig14_train_ticket_base.sh
     ```
-Next, run below to generate traffic surge scenario.
+    
+Next, run below to generate a traffic surge scenario.
     ```
     cd TopFull/TopFull_loadgen
     ./run_fig14_train_ticket.sh
     ```
+    
 For the online boutique application, do same with ```run_fig15_online_boutique_base.sh, run_fig15_online_boutique.sh```
 
 
