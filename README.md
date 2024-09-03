@@ -330,6 +330,7 @@ deploy_without_cluster.py corresponds to TopFull disabled with clustering APIs f
     cd TopFull/TopFull_master/online_boutique_scripts/src
     python deploy_mimd.py
     ```
+    
     ```
     cd TopFull/TopFull_master/online_boutique_scripts/src
     python deploy_without_cluster.py
