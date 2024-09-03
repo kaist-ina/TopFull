@@ -270,7 +270,6 @@ Please refer to the below sections first to set up the environments.
     cd TopFull/TopFull_master/online_boutique_scripts/src
     python deploy_rl.py
     ```
-    You may run python deploy_mimd.py for TopFull with MIMD heuristic instead of RL.
 
 4. Generate APIs workloads at load generation node.
     ```
@@ -321,3 +320,21 @@ execute online_boutique_breakwater_custom.yaml and online_boutique_dagor_custom.
     python metric_collector.py
     ```
 
+## Running component-wise experiments and generating traffic surge
+
+For component-wise experiments (corresponding to Figure 10 in the paper), instead of deploy_rl.py run deploy_mimd.py, or deploy_without_cluster.py. as below.
+deploy_mimd.py corresponds to TopFull with a heuristic MIMD-based rate controller instead of an RL-based rate controller.
+deploy_without_cluster.py corresponds to TopFull disabled with clustering APIs for parallel load control. 
+
+    ```
+    cd TopFull/TopFull_master/online_boutique_scripts/src
+    python deploy_mimd.py
+    ```
+    ```
+    cd TopFull/TopFull_master/online_boutique_scripts/src
+    python deploy_without_cluster.py
+    ```
+
+For traffic surge generation (corresponding to Figure 14, 15 in the paper) we provide the load generation bash scripts we have used.
+
+We also provide the load generation script for Figure 8 in the paper for the reference.
