@@ -259,26 +259,26 @@ Please refer to the below sections first to set up the environments.
    python instance_scaling.py
    ```
    
-2. Starting load controller at master node.
+2. Starting load controller at the master node.
     ```
     cd TopFull/TopFull_master/online_boutique_scripts/src/proxy
     go run proxy_online_boutique.go
     ```
 
-3. Running TopFull system (RL ver.) at master node.
+3. Running TopFull system (RL ver.) at the master node.
     ```
     cd TopFull/TopFull_master/online_boutique_scripts/src
     python deploy_rl.py
     ```
 
-4. Generate APIs workloads at load generation node.
+4. Generate API workloads at the load generation node.
     ```
     cd TopFull/TopFull_loadgen
     ./online_boutique_create.sh
     ./online_boutique_create2.sh
     ```
 
-5. Monitor and record results at master node.
+5. Monitor and record results at the master node.
     ```
     cd TopFull/TopFull_master/online_boutique_scripts/src
     python metric_collector.py
@@ -288,7 +288,7 @@ Please refer to the below sections first to set up the environments.
 
 Breakwater and DAGOR overload control algorithms are implemented by modifying the source code of online boutique application.
 We provide the modified codes in the online_boutique_source_code directory.
-In master node, instead of online_boutique_original_custom.yaml,
+In the master node, instead of online_boutique_original_custom.yaml,
 execute online_boutique_breakwater_custom.yaml and online_boutique_dagor_custom.yaml.
 
 1. Deploy microservices and scale instances
@@ -301,20 +301,20 @@ execute online_boutique_breakwater_custom.yaml and online_boutique_dagor_custom.
    python instance_scaling.py
    ```
 
-2. Starting load controller at master node.
+2. Starting load controller at the master node.
     ```
     cd TopFull/TopFull_master/online_boutique_scripts/src/proxy
     go run proxy_online_boutique.go
     ```
 
-3. Generate APIs workloads at load generation node.
+3. Generate API workloads at the load generation node.
     ```
     cd TopFull/TopFull_loadgen
     ./online_boutique_create.sh
     ./online_boutique_create2.sh
     ```
 
-4. Monitor and record results at master node.
+4. Monitor and record results at the master node.
     ```
     cd TopFull/TopFull_master/online_boutique_scripts/src
     python metric_collector.py
@@ -324,18 +324,36 @@ execute online_boutique_breakwater_custom.yaml and online_boutique_dagor_custom.
 
 For component-wise experiments (corresponding to Figure 10 in the paper), instead of deploy_rl.py run deploy_mimd.py, or deploy_without_cluster.py. as below.
 deploy_mimd.py corresponds to TopFull with a heuristic MIMD-based rate controller instead of an RL-based rate controller.
-deploy_without_cluster.py corresponds to TopFull disabled with clustering APIs for parallel load control. 
 
     ```
     cd TopFull/TopFull_master/online_boutique_scripts/src
     python deploy_mimd.py
     ```
-    
+
+deploy_without_cluster.py corresponds to TopFull disabled with clustering APIs for parallel load control. 
     ```
     cd TopFull/TopFull_master/online_boutique_scripts/src
     python deploy_without_cluster.py
     ```
 
 For traffic surge generation (corresponding to Figure 14, 15 in the paper) we provide the load generation bash scripts we have used.
+At the load generation node, first, generate base load which should be adequate workloads that microservices can handle.
+    ```
+    cd TopFull/TopFull_loadgen
+    ./run_fig14_train_ticket_base.sh
+    ```
+Next, run below to generate traffic surge scenario.
+    ```
+    cd TopFull/TopFull_loadgen
+    ./run_fig14_train_ticket.sh
+    ```
+For the online boutique application, do same with ```run_fig15_online_boutique_base.sh, run_fig15_online_boutique.sh```
 
-We also provide the load generation script for Figure 8 in the paper for the reference.
+
+We also provide the load generation script for Figure 8 in the paper for reference.
+    ```
+    cd TopFull/TopFull_loadgen
+    ./run_fig8_loadgen.sh
+    ```
+
+
