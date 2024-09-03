@@ -3,84 +3,6 @@
 This is an official Github repository for the SIGCOMM '24 paper "TopFull: An Adaptive Top-Down Overload Control for SLO-Oriented Microservices".
 The repository includes our implementation of TopFull on microservices environment.
 
-
-## How to run experiments with TopFull
-
-Once all the environments are set up with a master node and worker nodes on Kubernetes, overload experiments are carried out by executing codes in the dedicated order.
-Please refer to the below sections first to set up the environments.
-
-1. Deploy microservices and scale instances
-   ```
-   cd TopFull
-   kubectl apply -f TopFull_master/online_boutique_scripts/deployments/online_boutique_custom.yaml
-   kubectl apply -f TopFull_master/online_boutique_scripts/deployments/metric-server-latest.yaml
-
-   cd TopFull/TopFull_master/online_boutique_scripts/src
-   python instance_scaling.py
-   ```
-   
-2. Starting load controller at master node.
-    ```
-    cd TopFull/TopFull_master/online_boutique_scripts/src/proxy
-    go run proxy_online_boutique.go
-    ```
-
-3. Running TopFull system (RL ver.) at master node.
-    ```
-    cd TopFull/TopFull_master/online_boutique_scripts/src
-    python deploy_rl.py
-    ```
-    You may run python deploy_mimd.py for TopFull with MIMD heuristic instead of RL.
-
-4. Generate APIs workloads at load generation node.
-    ```
-    cd TopFull/TopFull_loadgen
-    ./online_boutique_create.sh
-    ./online_boutique_create2.sh
-    ```
-
-5. Monitor and record results at master node.
-    ```
-    cd TopFull/TopFull_master/online_boutique_scripts/src
-    python metric_collector.py
-    ```
-
-## How to run experiments with Breakwater and DAGOR
-
-Breakwater and DAGOR overload control algorithms are implemented by modifying the source code of online boutique application.
-We provide the modified codes in the online_boutique_source_code directory.
-In master node, instead of online_boutique_original_custom.yaml,
-execute online_boutique_breakwater_custom.yaml and online_boutique_dagor_custom.yaml.
-
-1. Deploy microservices and scale instances
-   ```
-   cd TopFull
-   kubectl apply -f TopFull_master/online_boutique_scripts/deployments/online_boutique_breakwater_custom.yaml
-   kubectl apply -f TopFull_master/online_boutique_scripts/deployments/metric-server-latest.yaml
-   
-   cd TopFull/TopFull_master/online_boutique_scripts/src
-   python instance_scaling.py
-   ```
-
-2. Starting load controller at master node.
-    ```
-    cd TopFull/TopFull_master/online_boutique_scripts/src/proxy
-    go run proxy_online_boutique.go
-    ```
-
-3. Generate APIs workloads at load generation node.
-    ```
-    cd TopFull/TopFull_loadgen
-    ./online_boutique_create.sh
-    ./online_boutique_create2.sh
-    ```
-
-4. Monitor and record results at master node.
-    ```
-    cd TopFull/TopFull_master/online_boutique_scripts/src
-    python metric_collector.py
-    ```
-
 ## Setting Kubernetes environment (master node and worker nodes)
 
 Set up Kubernetes environment for a master node and worker nodes.
@@ -311,3 +233,83 @@ In **Load Generator** Node, configure the host address to the master node's addr
     ```
 
 Modify resources (number of instances) for microservices through Kubernetes commands and workloads through Locust for the experiment.
+
+
+
+## How to run experiments with TopFull
+
+Once all the environments are set up with a master node and worker nodes on Kubernetes, overload experiments are carried out by executing codes in the dedicated order.
+Please refer to the below sections first to set up the environments.
+
+1. Deploy microservices and scale instances
+   ```
+   cd TopFull
+   kubectl apply -f TopFull_master/online_boutique_scripts/deployments/online_boutique_original_custom.yaml
+   kubectl apply -f TopFull_master/online_boutique_scripts/deployments/metric-server-latest.yaml
+
+   cd TopFull/TopFull_master/online_boutique_scripts/src
+   python instance_scaling.py
+   ```
+   
+2. Starting load controller at master node.
+    ```
+    cd TopFull/TopFull_master/online_boutique_scripts/src/proxy
+    go run proxy_online_boutique.go
+    ```
+
+3. Running TopFull system (RL ver.) at master node.
+    ```
+    cd TopFull/TopFull_master/online_boutique_scripts/src
+    python deploy_rl.py
+    ```
+    You may run python deploy_mimd.py for TopFull with MIMD heuristic instead of RL.
+
+4. Generate APIs workloads at load generation node.
+    ```
+    cd TopFull/TopFull_loadgen
+    ./online_boutique_create.sh
+    ./online_boutique_create2.sh
+    ```
+
+5. Monitor and record results at master node.
+    ```
+    cd TopFull/TopFull_master/online_boutique_scripts/src
+    python metric_collector.py
+    ```
+
+## How to run experiments with Breakwater and DAGOR
+
+Breakwater and DAGOR overload control algorithms are implemented by modifying the source code of online boutique application.
+We provide the modified codes in the online_boutique_source_code directory.
+In master node, instead of online_boutique_original_custom.yaml,
+execute online_boutique_breakwater_custom.yaml and online_boutique_dagor_custom.yaml.
+
+1. Deploy microservices and scale instances
+   ```
+   cd TopFull
+   kubectl apply -f TopFull_master/online_boutique_scripts/deployments/online_boutique_breakwater_custom.yaml
+   kubectl apply -f TopFull_master/online_boutique_scripts/deployments/metric-server-latest.yaml
+   
+   cd TopFull/TopFull_master/online_boutique_scripts/src
+   python instance_scaling.py
+   ```
+
+2. Starting load controller at master node.
+    ```
+    cd TopFull/TopFull_master/online_boutique_scripts/src/proxy
+    go run proxy_online_boutique.go
+    ```
+
+3. Generate APIs workloads at load generation node.
+    ```
+    cd TopFull/TopFull_loadgen
+    ./online_boutique_create.sh
+    ./online_boutique_create2.sh
+    ```
+
+4. Monitor and record results at master node.
+    ```
+    cd TopFull/TopFull_master/online_boutique_scripts/src
+    python metric_collector.py
+    ```
+
