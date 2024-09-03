@@ -320,7 +320,7 @@ execute online_boutique_breakwater_custom.yaml and online_boutique_dagor_custom.
     python metric_collector.py
     ```
 
-## Running component-wise experiments and generating traffic surge
+## Running component-wise experiments 
 
 For component-wise experiments (corresponding to Figure 10 in the paper), instead of deploy_rl.py run deploy_mimd.py, or deploy_without_cluster.py. as below.
 deploy_mimd.py corresponds to TopFull with a heuristic MIMD-based rate controller instead of an RL-based rate controller.
@@ -335,6 +335,8 @@ deploy_without_cluster.py corresponds to TopFull disabled with clustering APIs f
     cd TopFull/TopFull_master/online_boutique_scripts/src
     python deploy_without_cluster.py
     
+
+## Generating traffic surge
 
 For traffic surge generation (corresponding to Figure 14, 15 in the paper) we provide the load generation bash scripts we have used.
 At the load generation node, first, generate base load which should be adequate workloads that microservices can handle.
