@@ -331,6 +331,7 @@ deploy_mimd.py corresponds to TopFull with a heuristic MIMD-based rate controlle
     ```
 
 deploy_without_cluster.py corresponds to TopFull disabled with clustering APIs for parallel load control. 
+
     ```
     cd TopFull/TopFull_master/online_boutique_scripts/src
     python deploy_without_cluster.py
@@ -338,12 +339,14 @@ deploy_without_cluster.py corresponds to TopFull disabled with clustering APIs f
 
 For traffic surge generation (corresponding to Figure 14, 15 in the paper) we provide the load generation bash scripts we have used.
 At the load generation node, first, generate base load which should be adequate workloads that microservices can handle.
+
     ```
     cd TopFull/TopFull_loadgen
     ./run_fig14_train_ticket_base.sh
     ```
     
 Next, run below to generate a traffic surge scenario.
+
     ```
     cd TopFull/TopFull_loadgen
     ./run_fig14_train_ticket.sh
@@ -353,6 +356,7 @@ For the online boutique application, do same with ```run_fig15_online_boutique_b
 
 
 We also provide the load generation script for Figure 8 in the paper for reference.
+
     ```
     cd TopFull/TopFull_loadgen
     ./run_fig8_loadgen.sh
