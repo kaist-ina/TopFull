@@ -231,7 +231,7 @@ In **Load Generator** Node, configure the host address to the master node's addr
     online_boutique_create.sh
     online_boutique_create2.sh
     ```
-Change the below bold parts of --host=http://10.9.0.4:30440 to the master node's address.
+Change the below host address parts of **--host=http://10.9.0.4:30440** to the corresponding master node's address.
 ```
 tmux new-window -d -t session2 "locust -f locust_online_boutique.py **--host=http://10.8.0.4:30440** --tags postcheckout --master-bind-port=8881  --master --expect-workers=10 --headless -u $POSTCHECKOUT -r $((POSTCHECKOUT / RATE)) -t 15m  < ports/8886"
 for i in $(seq 1 10)
